@@ -65,7 +65,9 @@ class Value:
         """self + other; record (self, other) and op '+'. Wrap a number operand."""
         # TODO: coerce other to Value; return self._make(self.data + other.data,
         # (self, other), "+")
-        raise NotImplementedError
+        #raise NotImplementedError
+        out = Value(self.data + other.data)
+        return out
 
     def __mul__(self, other):
         """self * other; record (self, other) and op '*'. Wrap a number operand."""
