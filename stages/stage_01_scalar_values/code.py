@@ -44,6 +44,8 @@ class Value:
         # self._op, and self._backward (no-op lambda)
 
         self.data = data
+        self._prev = set(_children)
+        self._op = _op
         #raise NotImplementedError
 
     def _make(self, data, _children, _op):
@@ -53,19 +55,20 @@ class Value:
         subclass, so the whole graph is uniform and later stages need no op rewrites.
         """
         # TODO: return type(self)(data, _children, _op)
-        raise NotImplementedError
+        #raise NotImplementedError
+        return type(self)(data, _children, _op)
 
     def __repr__(self):
         """Return 'Value(data=<x>)'."""
         # TODO
         return f"Value(data=(self.data))"
-        #raise NotImplementedError
+        # raise NotImplementedError
 
     def __add__(self, other):
         """self + other; record (self, other) and op '+'. Wrap a number operand."""
         # TODO: coerce other to Value; return self._make(self.data + other.data,
         # (self, other), "+")
-        #raise NotImplementedError
+        # raise NotImplementedError
         out = Value(self.data + other.data)
         return out
 
@@ -73,16 +76,18 @@ class Value:
         """self * other; record (self, other) and op '*'. Wrap a number operand."""
         # TODO: coerce other to Value; return self._make(self.data * other.data,
         # (self, other), "*")
-        #raise NotImplementedError
-        out = Value (self.data * other.data)
+        # raise NotImplementedError
+        out = Value(self.data * other.data)
         return out
 
     def __pow__(self, exponent):
         """self ** exponent (int/float, not Value); record (self,) and op f'**{exponent}'."""
         # TODO: assert exponent is int/float; return self._make(self.data ** exponent,
         # (self,), f"**{exponent}")
-        raise NotImplementedError
-
+        # raise NotImplementedError
+        out = Value(self.data**exponent)
+        return out
+    
     def __neg__(self):
         """Return -self (as self * -1)."""
         # TODO
