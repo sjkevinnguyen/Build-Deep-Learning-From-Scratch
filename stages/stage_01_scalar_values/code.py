@@ -42,7 +42,9 @@ class Value:
         """
         # TODO: set self.data (float), self.grad (0.0), self._prev (set of _children),
         # self._op, and self._backward (no-op lambda)
-        raise NotImplementedError
+
+        self.data = data
+        #raise NotImplementedError
 
     def _make(self, data, _children, _op):
         """Build a result node of THIS class: ``type(self)(data, _children, _op)``.
@@ -56,7 +58,8 @@ class Value:
     def __repr__(self):
         """Return 'Value(data=<x>)'."""
         # TODO
-        raise NotImplementedError
+        return f"Value(data=(self.data))"
+        #raise NotImplementedError
 
     def __add__(self, other):
         """self + other; record (self, other) and op '+'. Wrap a number operand."""
