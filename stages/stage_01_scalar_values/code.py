@@ -62,13 +62,13 @@ class Value:
     def __add__(self, other):
         """self + other; record (self, other) and op '+'. Wrap a number operand."""
         if not isinstance(other, Value):
-            other = Value(other)
+            other = type(self)(other)
         return self._make(self.data + other.data, (self, other), "+")
 
     def __mul__(self, other):
         """self * other; record (self, other) and op '*'. Wrap a number operand."""
         if not isinstance(other, Value):
-            other = Value(other)
+            other = type(self)(other)
         return self._make(self.data * other.data, (self, other), "*")
 
     def __pow__(self, exponent):
