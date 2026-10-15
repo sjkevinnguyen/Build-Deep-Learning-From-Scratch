@@ -56,8 +56,7 @@ class Value:
 
     def __repr__(self):
         """Return 'Value(data=<x>)'."""
-        # TODO
-        raise NotImplementedError
+        return f"Value={self.data}"
 
     def __add__(self, other):
         """self + other; record (self, other) and op '+'. Wrap a number operand."""
