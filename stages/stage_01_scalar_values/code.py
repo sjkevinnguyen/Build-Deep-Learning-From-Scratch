@@ -52,8 +52,7 @@ class Value:
         Using ``type(self)`` (not ``Value``) means a subclass's operators return the
         subclass, so the whole graph is uniform and later stages need no op rewrites.
         """
-        # TODO: return type(self)(data, _children, _op)
-        raise NotImplementedError
+        return type(self)(data, _children, _op)
 
     def __repr__(self):
         """Return 'Value(data=<x>)'."""
