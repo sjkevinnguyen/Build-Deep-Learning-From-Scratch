@@ -90,20 +90,16 @@ class Value:
 
     def __radd__(self, other):
         """Return other + self."""
-        # TODO
-        raise NotImplementedError
+        return self + other
 
     def __rmul__(self, other):
         """Return other * self."""
-        # TODO
-        raise NotImplementedError
+        return self * other 
 
     def __rsub__(self, other):
         """Return other - self (as other + (-self))."""
-        # TODO
-        raise NotImplementedError
+        return other + (-self)
 
     def __rtruediv__(self, other):
         """Return other / self (as other * self ** -1)."""
-        # TODO
-        raise NotImplementedError
+        return other * self ** -1
