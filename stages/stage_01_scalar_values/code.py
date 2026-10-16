@@ -60,21 +60,15 @@ class Value:
 
     def __add__(self, other):
         """self + other; record (self, other) and op '+'. Wrap a number operand."""
-        # TODO: coerce other to Value; return self._make(self.data + other.data,
-        # (self, other), "+")
-        raise NotImplementedError
+        return self._make(self.data + other.data, (self, other), "+")
 
     def __mul__(self, other):
         """self * other; record (self, other) and op '*'. Wrap a number operand."""
-        # TODO: coerce other to Value; return self._make(self.data * other.data,
-        # (self, other), "*")
-        raise NotImplementedError
+        return self._make(self.data * other.data, (self, other), "*")
 
     def __pow__(self, exponent):
         """self ** exponent (int/float, not Value); record (self,) and op f'**{exponent}'."""
-        # TODO: assert exponent is int/float; return self._make(self.data ** exponent,
-        # (self,), f"**{exponent}")
-        raise NotImplementedError
+        return self._make(self.data ** exponent, (self,), f"**{exponent}")
 
     def __neg__(self):
         """Return -self (as self * -1)."""
