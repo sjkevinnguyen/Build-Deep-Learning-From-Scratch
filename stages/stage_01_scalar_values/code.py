@@ -40,7 +40,7 @@ class Value:
         Set ``self.data`` (float), ``self.grad = 0.0``, ``self._prev = set(_children)``,
         ``self._op = _op``, and a no-op ``self._backward = lambda: None``.
         """
-        self.data = data
+        self.data = float(data)
         self.grad = 0.0
         self._prev = set(_children)
         self._op = _op
@@ -56,7 +56,7 @@ class Value:
 
     def __repr__(self):
         """Return 'Value(data=<x>)'."""
-        return f"Value={self.data}"
+        return f"Value(data={self.data})"
 
     def __add__(self, other):
         """self + other; record (self, other) and op '+'. Wrap a number operand."""
