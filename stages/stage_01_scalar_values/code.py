@@ -72,18 +72,15 @@ class Value:
 
     def __neg__(self):
         """Return -self (as self * -1)."""
-        # TODO
-        raise NotImplementedError
+        return self * -1
 
     def __sub__(self, other):
         """Return self - other (as self + (-other))."""
-        # TODO
-        raise NotImplementedError
+        return self + (-other)
 
     def __truediv__(self, other):
         """Return self / other (as self * other ** -1)."""
-        # TODO
-        raise NotImplementedError
+        return self * other ** -1
 
     # reflected operators: enable `2 * a`, `1 + a`, `3 - a`, `6 / a`
 
