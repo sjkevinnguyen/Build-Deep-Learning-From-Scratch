@@ -77,5 +77,4 @@ class Value(Stage2_Value):
 
     def __repr__(self) -> str:
         """e.g. ``Value(data=3.0, grad=0.0)`` (grad still 0 until stage_04 backward)."""
-        # TODO: return f"Value(data={self.data}, grad={self.grad})"
-        raise NotImplementedError("stage_03: implement __repr__")
+        return f"Value(data{self.data}, grad={self.grad})"
