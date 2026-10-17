@@ -77,4 +77,4 @@ class Value(Stage2_Value):
 
     def __repr__(self) -> str:
         """e.g. ``Value(data=3.0, grad=0.0)`` (grad still 0 until stage_04 backward)."""
-        return f"Value(data{self.data}, grad={self.grad})"
+        return f"Value(data={self.data}, grad={self.grad})"
