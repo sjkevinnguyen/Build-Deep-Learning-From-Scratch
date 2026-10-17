@@ -51,5 +51,12 @@ def trace(root):
     edges: set of (parent, child) tuples, one per _prev link.
     Use a visited set so the DAG walk terminates on reused nodes (e.g. a * a).
     """
-    # TODO: implement the backward graph walk
-    raise NotImplementedError("stage_02: implement trace")
+    nodes, edges = set(), set()
+    def build(v):
+        if v not in nodes:
+          nodes.add(v)
+          for child in v._prev:
+              edges.add((child, v))
+              build(child)
+    build(root)
+    return (nodes, edges)
