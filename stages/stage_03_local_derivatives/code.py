@@ -52,8 +52,8 @@ class Value(Stage2_Value):
 
     def __add__(self, other: "Value | Number") -> "Value":
         """self + other; install _backward: a.grad += out.grad; b.grad += out.grad."""
-        if not isinstance(other, Value):
-            other = Value(other)
+        if not isinstance(other, type(self)):
+            other = type(self)(other)
         out = super().__add__(other)
         def _backward():
             self.grad += out.grad
@@ -63,9 +63,9 @@ class Value(Stage2_Value):
 
     def __mul__(self, other: "Value | Number") -> "Value":
         """self * other; install _backward: a.grad += b*out.grad; b.grad += a*out.grad."""
+        if not isinstance(other, type(self)):
+            other = type(self)(other)
         out = super().__mul__(other)
-        if not isinstance(other, Value):
-            other = Value(other)
         def _backward():
             self.grad += other.data * out.grad
             other.grad += self.data * out.grad
