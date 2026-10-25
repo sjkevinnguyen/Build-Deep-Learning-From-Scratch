@@ -42,10 +42,10 @@ class Value(Stage3_Value):
 
         Does not zero grads first; callers zero between passes if needed.
         """
-        # TODO: topo = topo_sort(self); self.grad = 1.0;
-        # for v in reversed(topo): v._backward()
-        raise NotImplementedError("stage_04: implement backward()")
-
+        topo = topo_sort(self)
+        self.grad = 1.0
+        for v in reversed(topo): 
+            v._backward()
 
 def topo_sort(root: "Value") -> List["Value"]:
     """Return nodes reachable from ``root`` in topological order.
@@ -60,7 +60,8 @@ def topo_sort(root: "Value") -> List["Value"]:
     def build(v: "Value") -> None:
         if v not in visited:
             visited.add(v)
-            build(v._prev)
-        order.append(v)
+            for child in v._prev:
+                build(child)
+            order.append(v)
     build(root)
     return order
