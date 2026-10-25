@@ -58,9 +58,9 @@ def topo_sort(root: "Value") -> List["Value"]:
     visited: Set["Value"] = set()
 
     def build(v: "Value") -> None:
-        # TODO: if v not in visited: add v; recurse into each child in v._prev;
-        # then append v to order (post-order)
-        raise NotImplementedError("stage_04: implement the DFS post-order build")
-
-    # TODO: build(root); return order
-    raise NotImplementedError("stage_04: implement topo_sort")
+        if v not in visited:
+            visited.add(v)
+            build(v._prev)
+        order.append(v)
+    build(root)
+    return order
