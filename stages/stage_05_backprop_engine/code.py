@@ -41,7 +41,7 @@ class Value(Stage4_Value):
         t = (math.exp(2*x)-1)/(math.exp(2*x)+1)
         out = Value(t, (self,), 'tanh')
         def _backward():
-            self.grad += 1 - t**2
+            self.grad += (1 - t**2) * out.grad
         out._backward = _backward
         return out
 
@@ -51,14 +51,20 @@ class Value(Stage4_Value):
         t = math.exp(x)
         out = Value(t, (self,), 'exp')
         def _backward():
-            self.grad += t
+            self.grad += t * out.grad
         out._backward = _backward
         return out
 
     def relu(self) -> "Value":
         """Return ReLU(self) = max(0, self). Local rule: dr/dx = 1 if x > 0 else 0."""
-        # TODO: implement the forward + backward pass for relu
-        raise NotImplementedError
+        x = self.data
+        t = max(0, x)
+        out = Value(t, (self,), 'relu')
+        def _backward():
+            if t > 0:
+                self.grad += 1 * out.grad
+        out._backward = _backward
+        return out
 
     def __repr__(self) -> str:
         """Return e.g. ``Value(data=2.0, grad=4.0)``."""
