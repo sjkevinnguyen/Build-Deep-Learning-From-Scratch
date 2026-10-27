@@ -52,5 +52,4 @@ class Value(Stage4_Value):
 
     def __repr__(self) -> str:
         """Return e.g. ``Value(data=2.0, grad=4.0)``."""
-        # TODO: implement the grad-aware repr
-        raise NotImplementedError
+        return f"Value(data={self.data}, grad={self.grad})"
