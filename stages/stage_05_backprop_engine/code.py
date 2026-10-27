@@ -37,8 +37,13 @@ class Value(Stage4_Value):
 
     def tanh(self) -> "Value":
         """Return tanh(self). Local rule: dt/dx = 1 - tanh(x)**2."""
-        # TODO: implement the forward + backward pass for tanh
-        raise NotImplementedError
+        x = self.data
+        t = (math.exp(2*x)-1)/(math.exp(2*x)+1)
+        out = Value(t, (self,), 'tanh')
+        def _backward():
+            self.grad += 1 - t**2
+        out._backward = _backward
+        return out
 
     def exp(self) -> "Value":
         """Return exp(self). Local rule: de/dx = exp(x)."""
