@@ -47,8 +47,13 @@ class Value(Stage4_Value):
 
     def exp(self) -> "Value":
         """Return exp(self). Local rule: de/dx = exp(x)."""
-        # TODO: implement the forward + backward pass for exp
-        raise NotImplementedError
+        x = self.data
+        t = math.exp(x)
+        out = Value(t, (self,), 'exp')
+        def _backward():
+            self.grad += t
+        out._backward = _backward
+        return out
 
     def relu(self) -> "Value":
         """Return ReLU(self) = max(0, self). Local rule: dr/dx = 1 if x > 0 else 0."""
