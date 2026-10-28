@@ -33,16 +33,19 @@ class Vec:
     def __init__(self, data: Iterable[Scalar]) -> None:
         """Store ``data`` as a list of ``Value``, wrapping non-``Value`` entries."""
         self.data: List[Stage5_Value] = []
-        raise NotImplementedError("TODO: wrap data into a list of Value")
+        for item in data:
+            if not isinstance(item, Value):
+                item = Value(item)
+            self.data.append(item)
 
     # --- container protocol ---
     def __len__(self) -> int:
         """Number of elements in the vector."""
-        raise NotImplementedError("TODO")
+        return len(self.data)
 
     def __getitem__(self, i: int) -> Stage5_Value:
         """Return the i-th ``Value`` (no copy)."""
-        raise NotImplementedError("TODO")
+        return self.data[i]
 
     def __iter__(self):
         """Iterate over the underlying ``Value`` scalars."""
