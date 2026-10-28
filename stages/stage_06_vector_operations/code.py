@@ -106,15 +106,26 @@ class Vec:
     # reflected scalar ops: scalar OP vec
     def __radd__(self, other: Scalar) -> "Vec":
         """Return ``other + self`` (commutative)."""
-        raise NotImplementedError("TODO")
+        return self + other
 
     def __rmul__(self, other: Scalar) -> "Vec":
         """Return ``other * self`` (commutative)."""
-        raise NotImplementedError("TODO")
+        return self * other
 
     def __rsub__(self, other: Scalar) -> "Vec":
         """Return ``other - self`` (e.g. ``10 - vec``)."""
-        raise NotImplementedError("TODO")
+        result = []
+                        
+        if isinstance(other, type(self)):
+            assert len(self) == len(other)
+            for i in range(len(self)):
+                result.append(other.data[i] - self.data[i])
+        else:
+            for i in range(len(self)):
+                result.append(other - self.data[i])
+        
+        out = Vec(result)
+        return out
 
     # --- reductions (return a scalar Value) ---
     def dot(self, other: "Vec") -> Stage5_Value:
