@@ -130,13 +130,18 @@ class Vec:
     # --- reductions (return a scalar Value) ---
     def dot(self, other: "Vec") -> Stage5_Value:
         """Dot product ``sum_i self[i] * other[i]`` as one ``Value``; ValueError if lengths differ."""
-        raise NotImplementedError("TODO: dot product from Value ops")
+        result = self * other
+        return Vec.sum(result)
 
     def sum(self) -> Stage5_Value:
         """Return ``sum_i self[i]`` as a single ``Value``."""
-        raise NotImplementedError("TODO")
+        out = 0
+        for i in self.data:
+            out += i
+        return out
 
     # --- elementwise activation ---
     def relu(self) -> "Vec":
         """Elementwise ReLU; return a new ``Vec`` using stage_05 ``Value.relu()``."""
-        raise NotImplementedError("TODO")
+        result = [x.relu() for x in self.data]
+        return Vec(result)
