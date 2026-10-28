@@ -49,7 +49,7 @@ class Vec:
 
     def __iter__(self):
         """Iterate over the underlying ``Value`` scalars."""
-        raise NotImplementedError("TODO")
+        return iter(self.data)
 
     def __repr__(self) -> str:
         return f"Vec({[v.data for v in self.data]})"
@@ -57,15 +57,51 @@ class Vec:
     # --- elementwise ops (Vec op Vec, or Vec op scalar broadcast) ---
     def __add__(self, other: "Vec | Scalar") -> "Vec":
         """Elementwise add; ``other`` is an equal-length ``Vec`` or a broadcast scalar."""
-        raise NotImplementedError("TODO: elementwise add with scalar broadcast")
+        
+        result = []
+        
+        if isinstance(other, type(self)):
+            assert len(self) == len(other)
+            for i in range(len(self)):
+                result.append(self.data[i] + other.data[i])
+        else:
+            for i in range(len(self)):
+                result.append(self.data[i] + other)
+        
+        out = Vec(result)
+        return out
 
     def __sub__(self, other: "Vec | Scalar") -> "Vec":
         """Elementwise subtract (see ``__add__`` for broadcast/length rules)."""
-        raise NotImplementedError("TODO")
+        
+        result = []
+                
+        if isinstance(other, type(self)):
+            assert len(self) == len(other)
+            for i in range(len(self)):
+                result.append(self.data[i] - other.data[i])
+        else:
+            for i in range(len(self)):
+                result.append(self.data[i] - other)
+        
+        out = Vec(result)
+        return out
 
     def __mul__(self, other: "Vec | Scalar") -> "Vec":
         """Elementwise (Hadamard) multiply (see ``__add__`` for the rules)."""
-        raise NotImplementedError("TODO")
+        
+        result = []
+                        
+        if isinstance(other, type(self)):
+            assert len(self) == len(other)
+            for i in range(len(self)):
+                result.append(self.data[i] * other.data[i])
+        else:
+            for i in range(len(self)):
+                result.append(self.data[i] * other)
+        
+        out = Vec(result)
+        return out
 
     # reflected scalar ops: scalar OP vec
     def __radd__(self, other: Scalar) -> "Vec":
