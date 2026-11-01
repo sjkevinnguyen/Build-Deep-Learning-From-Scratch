@@ -38,7 +38,22 @@ class Mat:
         self.data: List[List[Stage5_Value]] = []
         self.rows: int = 0
         self.cols: int = 0
-        raise NotImplementedError("TODO: build a List[List[Value]] and set rows/cols")
+
+        self.rows = len(data)
+        self.cols = len(data[0])
+        for i in range(self.rows):
+            temp_list = []
+
+            # Ragged rows check
+            assert len(data[i]) == self.cols
+            for j in range(self.cols):
+                num = data[i][j]
+                if not isinstance(num, Value):
+                    temp_list.append(Value(num))
+                else:
+                    temp_list.append(num)
+            self.data.append(temp_list)
+
 
     @property
     def shape(self) -> Tuple[int, int]:
@@ -46,11 +61,11 @@ class Mat:
 
     def __getitem__(self, i: int) -> List[Stage5_Value]:
         """Return row `i` as a list of `Value`."""
-        raise NotImplementedError("TODO")
+        return self.data[i]
 
     def __iter__(self):
         """Iterate over rows."""
-        raise NotImplementedError("TODO")
+        return iter(self.data)
 
     def __repr__(self) -> str:
         return f"Mat(shape={self.shape})"
