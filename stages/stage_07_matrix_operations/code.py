@@ -44,8 +44,8 @@ class Mat:
         for i in range(self.rows):
             temp_list = []
 
-            # Ragged rows check
             assert len(data[i]) == self.cols
+            
             for j in range(self.cols):
                 num = data[i][j]
                 if not isinstance(num, Value):
@@ -53,7 +53,6 @@ class Mat:
                 else:
                     temp_list.append(num)
             self.data.append(temp_list)
-
 
     @property
     def shape(self) -> Tuple[int, int]:
@@ -73,11 +72,23 @@ class Mat:
     def matmul(self, other: "Mat") -> "Mat":
         """Matrix product C = self @ other; (m,k)@(k,n) -> (m,n), where
         C[i][j] = sum_p self[i][p] * other[p][j]. ValueError on inner-dim mismatch."""
-        raise NotImplementedError("TODO: build C[i][j] = sum_p self[i][p]*other[p][j]")
+        
+        assert self.cols == other.rows
+        
+        res = [[0 for c in range(other.cols)] for r in range(self.rows)]
+
+        for i in range(self.rows):
+            for j in range(other.cols):
+                temp = 0
+                for p in range(self.cols):
+                    temp += self.data[i][p] * other.data[p][j]
+                res[i][j] = temp
+        
+        return Mat(res)
 
     def __matmul__(self, other: "Mat") -> "Mat":
         """The `@` operator; delegates to `matmul`."""
-        raise NotImplementedError("TODO: return self.matmul(other)")
+        return self.matmul(other)
 
     def transpose(self) -> "Mat":
         """Transpose: C[j][i] = self[i][j], shape (cols, rows); reuse the same
