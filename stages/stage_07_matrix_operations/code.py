@@ -122,12 +122,16 @@ class Mat:
 
         for i in range(rows):
             for j in range(cols):
-                res[i][j] = flatten.pop()
+                res[i][j] = flatten.pop(0)
         return Mat(res)
 
     def sum(self) -> Stage5_Value:
         """Sum of all elements as one `Value`: s = sum_{i,j} self[i][j]."""
-        raise NotImplementedError("TODO: sum every Value into one scalar")
+        res = 0
+        for i in range(self.rows):
+            for j in range(self.cols):
+                res += self.data[i][j]
+        return res
 
     def mean(self) -> Stage5_Value:
         """Mean of all elements as one `Value`: sum() / N, N = rows*cols."""
