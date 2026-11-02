@@ -135,4 +135,5 @@ class Mat:
 
     def mean(self) -> Stage5_Value:
         """Mean of all elements as one `Value`: sum() / N, N = rows*cols."""
-        raise NotImplementedError("TODO: self.sum() scaled by 1/N")
+        N = self.rows * self.cols
+        return self.sum() / N
