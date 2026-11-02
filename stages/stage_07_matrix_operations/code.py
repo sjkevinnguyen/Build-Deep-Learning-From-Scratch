@@ -93,12 +93,18 @@ class Mat:
     def transpose(self) -> "Mat":
         """Transpose: C[j][i] = self[i][j], shape (cols, rows); reuse the same
         `Value` objects so gradient flows back to the originals."""
-        raise NotImplementedError("TODO: build transposed Mat reusing the Values")
+
+        res = [[0 for c in range(self.rows)] for r in range(self.cols)]
+
+        for i in range(self.rows):
+            for j in range(self.cols):
+                res[j][i] = self[i][j]
+        return Mat(res)
 
     @property
     def T(self) -> "Mat":
         """Property alias for `transpose()`."""
-        raise NotImplementedError("TODO: return self.transpose()")
+        return self.transpose()
 
     def reshape(self, rows: int, cols: int) -> "Mat":
         """Reshape to (rows, cols) row-major, reusing the `Value`s; ValueError if
