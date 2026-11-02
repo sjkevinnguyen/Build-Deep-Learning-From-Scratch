@@ -109,7 +109,21 @@ class Mat:
     def reshape(self, rows: int, cols: int) -> "Mat":
         """Reshape to (rows, cols) row-major, reusing the `Value`s; ValueError if
         the element count changes."""
-        raise NotImplementedError("TODO: row-major flatten then regroup, reusing Values")
+
+        res = [[0 for c in range(cols)] for r in range(rows)]
+        flatten = []
+        
+        for i in range(self.rows):
+            for j in range(self.cols):
+                flatten.append(self.data[i][j])
+
+        if rows * cols != len(flatten):
+            raise ValueError(f"Cannot reshape matrix of size {len(flatten)} into ({rows}, {cols})")
+
+        for i in range(rows):
+            for j in range(cols):
+                res[i][j] = flatten.pop()
+        return Mat(res)
 
     def sum(self) -> Stage5_Value:
         """Sum of all elements as one `Value`: s = sum_{i,j} self[i][j]."""
